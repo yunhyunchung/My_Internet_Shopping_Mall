@@ -2,7 +2,7 @@ from django.db import models
 
 class Piano(models.Model):
     # 상품명
-    piano_name = models.CharField(max_length=30)
+    title = models.CharField(max_length=30)
     # 간단한 상품 설명
     content = models.TextField()
     # 상품 이미지
@@ -15,6 +15,9 @@ class Piano(models.Model):
 
     def __str__(self):
         return f'[{self.pk}]{self.piano_name}'
+
+    def get_absolute_url(self):
+        return f'/shopping/{self.pk}'
 
 class Maker(models.Model):
     # 제조사명
