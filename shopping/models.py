@@ -6,7 +6,7 @@ class Piano(models.Model):
     # 간단한 상품 설명
     content = models.TextField()
     # 상품 이미지
-
+    head_image = models.ImageField(upload_to='shopping/images/%Y/%m/%d/', blank=True)
     # 가격
     price = models.CharField(max_length=30)
     # 제조사 모델(외래키)
@@ -14,7 +14,7 @@ class Piano(models.Model):
     # 카테고리 모델(외래키)
 
     def __str__(self):
-        return f'[{self.pk}]{self.piano_name}'
+        return f'[{self.pk}]{self.title}'
 
     def get_absolute_url(self):
         return f'/shopping/{self.pk}'

@@ -16,8 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+# 이미지 media URL 지정하기 위한 import
+from django.conf.urls.static import static
+from django.conf import settings
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('shopping/', include('shopping.urls')),  # 상품 소개 페이지
     path('', include('myhome.urls')),  # 대문, 자기소개 페이지
 ]
+
+# 이미지 media URL 지정하기
+# 이미지 /media/ url 접속하면 media_root에 저장된 이미지 열기 실행
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  #서버IP/media

@@ -1,18 +1,51 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>Digital Piano Shopping Mall</title>
-</head>
-<!-- 피아노 목록 페이지 -->
-<body>
-    <h2>Digital Piano Shopping Mall</h2>
+{% extends 'shopping/base.html' %}
 
-    {% for p in piano_list %}
-        <h3><a href="{{ p.get_absolute_url }}">{{ p.title }}</a></h3>
-        <h4>{{ p.price }}</h4>
-        <p>{{ p.content }}</p>
-    {% endfor %}
+{% block main_area %}
+<!-- 피아노 목록 페이지 대표 이미지 및 글 -->
+<div class="jumbotron p-4 p-md-5 text-white rounded bg-dark">
+    <div class="px-0">
+      <h1 class="display-4 font-italic">GREAT Digital Pianos for you!</h1>
+      <p class="lead my-3 text-white font-weight-bold">디자인, 성능, 가격을 모두 다 갖춘 디지털 피아노!</p>
+    </div>
+  </div>
 
-</body>
-</html>
+<!-- 피아노 카드 -->
+{% for p in piano_list %}
+  <div class="col mb-2">
+    <div class="row">
+      <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col d-flex p-4 flex-column position-static">
+          <strong class="d-inline-block mb-2 text-primary">World</strong>  <!-- 태그 -->
+          <h3 class="mb-0">{{ p.title }}</h3>
+          <div class="mb-1 mt-4 text-muted">{{ p.price }}</div>
+          <p class="card-text mb-auto mt-4">{{ p.content }}</p>
+          <a href="{{ p.get_absolute_url }}" class="btn btn-outline-primary">View Detail</a>
+        </div>
+        <div class="col-auto d-none d-lg-block">
+          <!-- 피아노 이미지 -->
+          {% if p.head_image %}
+            <img src="{{ p.head_image.url }}" alt="{{ p }} head image" >
+          {% else %} <!--없으면 임의의 이미지 가져오기-->
+            <img src="https://picsum.photos/seed/{{ p.id }}/500/500" alt="random image">
+          {% endif %}
+          <!--
+          <svg class="{{ p.head_image.url }}" width="200" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+            <title>Placeholder</title>
+            <rect width="100%" height="100%" fill="#55595c"/>
+            <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+          </svg>
+          -->
+        </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+
+<br/><br/>
+    <!-- Pagination, 페이지 번호-->
+    <ul class="pagination justify-content-center my-4">
+      <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">&larr; Newer</a></li>
+      <li class="page-item"><a class="page-link" href="#!">Older &rarr;</a></li>
+    </ul>
+
+{% endblock %}

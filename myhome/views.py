@@ -13,3 +13,9 @@ def my_page(request):
         request,
         'myhome/my_page.html'
     )
+
+def about_company(request):
+    return render(
+        request,
+        'myhome/about_company.html'
+    )
