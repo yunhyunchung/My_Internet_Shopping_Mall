@@ -13,15 +13,10 @@
         <!-- Post header-->
         <header class="mb-4">
             <!--Category 뱃지-->
-            {% if piano.category %}
-                <span class="badge badge-secondary float-right">{{ piano.category }}</span>
-            {% else %}
-                <span class="badge badge-secondary float-right">미분류</span>
-                <a class="badge bg-secondary text-decoration-none link-light float-right" href="#!">Category</a>
-                <a class="badge bg-secondary text-decoration-none link-light float-right" href="#!">Maker</a>
-            {% endif %}
+            <span class="badge badge-secondary float-right">{{ piano.category }}</span>
+            <!--<a class="badge bg-secondary text-decoration-none link-light float-right" href="#!">Category</a>-->
             <!-- 피아노 이름, 별점, 가격 -->
-            <h1 class="fw-bolder mb-1">{{ piano.title }}</h1>
+            <h2 class="fw-bolder mb-1">{{ piano.title }}</h2>
             <h5 class="text-muted my-3"><i class="fas fa-star"></i> {{ piano.star_rate }}</h5>
             <h5 class="text-muted fst-italic my-3">{{ piano.price }}</h5>
             <!-- 제품 등록년월 -->

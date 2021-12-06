@@ -35,10 +35,14 @@
 
         <!-- Categories widget-->
         <div class="card mb-4" id="categories-card">
-          <div class="card-header">Categories</div>
+          <div class="card-header">Categories : Key Type</div>
           <div class="card-body">
               <div class="row">
-                  <ul>카테고리</ul>
+                  <ul> <!-- "카테고리 (숫자)" 클릭하면 해당 카테고리 페이지로 이동 -->
+                      {% for c in categories %}
+                        <li><a href="{{ c.get_absolute_url }}">{{c}} ({{c.piano_set.count}})</a></li>
+                      {% endfor %}
+                  </ul>
               </div>
           </div>
       `</div>

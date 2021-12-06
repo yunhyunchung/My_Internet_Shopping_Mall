@@ -2,13 +2,12 @@ from django.db import models
 
 
 class Category(models.Model):
-    # keytype = models.CharField(max_length=20, unique=True)
     # 벨로시티(건반 터치 감도)
     # touch_response = models.CharField(max_length=10, unique=True)
     # 폴리포니
     # poly_phony = models.CharField(max_length=10, unique=True)
 
-    # 건반타입
+    # 건반타입 key type
     name = models.CharField(max_length=50, null=True, unique=True)
     slug = models.SlugField(max_length=200, null=True, unique=True, allow_unicode=True)
 

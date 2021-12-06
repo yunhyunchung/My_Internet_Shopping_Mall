@@ -3,11 +3,18 @@
 {% block main_area %}
 <!-- 피아노 목록 페이지 대표 이미지 및 글 -->
 <div class="jumbotron p-4 p-md-5 text-white rounded bg-dark">
+  {% if category %}
     <div class="px-0">
-      <h1 class="display-4 font-italic">GREAT Digital Pianos for you!</h1>
+      <h2 class="display-5 font-weight-bold">{{ category }} Pianos for you!</h2>
+      <h4 class="lead my-3 text-white font-weight-bold">Here are {{ category_piano_count }} pianos you find</h4>
+    </div>
+  {% else %}
+    <div class="px-0">
+      <h2 class="display-5 font-italic font-weight-bold">GREAT Digital Pianos for you!</h2>
       <p class="lead my-3 text-white font-weight-bold">디자인, 성능, 가격을 모두 다 갖춘 디지털 피아노!</p>
     </div>
-  </div>
+  {% endif %}
+</div>
 
 <!-- 피아노 목록 카드 -->
 {% for p in piano_list %}
@@ -15,8 +22,9 @@
     <div class="row">
       <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
         <div class="col d-flex p-4 flex-column position-static">
+          <!-- 카테고리 -->
           <strong class="d-inline-block mb-2 text-primary">{{ p.category }}</strong>
-          <h4 class="mb-0">{{ p.title }}</h4>
+          <h4 class="mb-0 font-weight-bold">{{ p.title }}</h4>
           <div class="mb-1 mt-4 text-muted">{{ p.price }} &nbsp; | &nbsp; <i class="fas fa-star"></i> {{ p.star_rate }}</div>
           <p class="card-text mb-auto mt-4">{{ p.content | truncatewords:35}}</p>
           <br/>
@@ -24,6 +32,7 @@
           <br/>
           <a href="{{ p.get_absolute_url }}" class="btn btn-outline-primary">View Detail</a>
         </div>
+
         <div class="col-auto d-none d-lg-block">
           <!-- 피아노 이미지 -->
           {% if p.head_image %}
