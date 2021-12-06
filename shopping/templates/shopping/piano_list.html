@@ -9,16 +9,19 @@
     </div>
   </div>
 
-<!-- 피아노 카드 -->
+<!-- 피아노 목록 카드 -->
 {% for p in piano_list %}
   <div class="col mb-2">
     <div class="row">
       <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
         <div class="col d-flex p-4 flex-column position-static">
-          <strong class="d-inline-block mb-2 text-primary">World</strong>  <!-- 태그 -->
-          <h3 class="mb-0">{{ p.title }}</h3>
-          <div class="mb-1 mt-4 text-muted">{{ p.price }}</div>
-          <p class="card-text mb-auto mt-4">{{ p.content }}</p>
+          <strong class="d-inline-block mb-2 text-primary">{{ p.category }}</strong>
+          <h4 class="mb-0">{{ p.title }}</h4>
+          <div class="mb-1 mt-4 text-muted">{{ p.price }} &nbsp; | &nbsp; <i class="fas fa-star"></i> {{ p.star_rate }}</div>
+          <p class="card-text mb-auto mt-4">{{ p.content | truncatewords:35}}</p>
+          <br/>
+          <div class="small text-muted">registered on {{ p.created_at | date:"20y-m"}}</div>
+          <br/>
           <a href="{{ p.get_absolute_url }}" class="btn btn-outline-primary">View Detail</a>
         </div>
         <div class="col-auto d-none d-lg-block">
@@ -28,13 +31,6 @@
           {% else %} <!--없으면 임의의 이미지 가져오기-->
             <img src="https://picsum.photos/seed/{{ p.id }}/500/500" alt="random image">
           {% endif %}
-          <!--
-          <svg class="{{ p.head_image.url }}" width="200" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#55595c"/>
-            <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-          </svg>
-          -->
         </div>
       </div>
     </div>
