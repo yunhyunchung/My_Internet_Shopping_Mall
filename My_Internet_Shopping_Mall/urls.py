@@ -24,6 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('shopping/', include('shopping.urls')),  # 상품 소개 페이지
     path('', include('myhome.urls')),  # 대문, 자기소개 페이지
+    path('accounts/', include('allauth.urls')),
+    path('markdownx/', include('markdownx.urls')),
 ]
 
 # 이미지 media URL 지정하기

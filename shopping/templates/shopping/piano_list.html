@@ -1,6 +1,16 @@
 {% extends 'shopping/base.html' %}
 
 {% block main_area %}
+
+<!-- new post 작성 버튼 -->
+    {% if user.is_authenticated %}
+        {% if user.is_staff or user.is_superuser %}
+            <a class="btn btn-info btn-sm float-right" href="/shopping/create_post/" role="button">
+                <i class="fas fa-pen"></i>&nbsp; New Post
+            </a>
+        {% endif %}
+    {% endif %}
+
 <!-- 피아노 목록 페이지 대표 이미지 및 글 -->
 <div class="jumbotron p-4 p-md-5 text-white rounded bg-dark">
   {% if category %}
@@ -26,9 +36,10 @@
           <strong class="d-inline-block mb-2 text-primary">{{ p.category }}</strong>
           <h4 class="mb-0 font-weight-bold">{{ p.title }}</h4>
           <div class="mb-1 mt-4 text-muted">{{ p.price }} &nbsp; | &nbsp; <i class="fas fa-star"></i> {{ p.star_rate }}</div>
-          <p class="card-text mb-auto mt-4">{{ p.content | truncatewords:35}}</p>
+          <p class="card-text mb-auto mt-4">{{ p.get_content_markdown | truncatewords_html:35 | safe }}</p>
           <br/>
-          <div class="small text-muted">registered on {{ p.created_at | date:"20y-m"}}</div>
+          <div class="small text-muted">release date : {{ p.release_date | date:"20y-m"}}
+              &nbsp;&nbsp;|&nbsp;&nbsp; posted by : {{ p.author | upper }}</div>
           <br/>
           <a href="{{ p.get_absolute_url }}" class="btn btn-outline-primary">View Detail</a>
         </div>
@@ -38,7 +49,7 @@
           {% if p.head_image %}
             <img src="{{ p.head_image.url }}" alt="{{ p }} head image" >
           {% else %} <!--없으면 임의의 이미지 가져오기-->
-            <img src="https://picsum.photos/seed/{{ p.id }}/500/500" alt="random image">
+            <img src="https://picsum.photos/seed/{{ p.id }}/330/330" alt="random image">
           {% endif %}
         </div>
       </div>

@@ -1,8 +1,9 @@
 from django.contrib import admin
 from .models import Piano, Maker, Category
-# Register your models here.
+from markdownx.admin import MarkdownxModelAdmin
 
-admin.site.register(Piano)
+# 관리자 페이지에 Piano 등록, Markdown(적용한 preview) 등록
+admin.site.register(Piano, MarkdownxModelAdmin)
 
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name', )}

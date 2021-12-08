@@ -17,10 +17,16 @@
             <!--<a class="badge bg-secondary text-decoration-none link-light float-right" href="#!">Category</a>-->
             <!-- 피아노 이름, 별점, 가격 -->
             <h2 class="fw-bolder mb-1">{{ piano.title }}</h2>
+            <hr>
+            <!-- Edit Post 버튼 -->
+            {% if user.is_authenticated and user == piano.author %}
+                <a href="/shopping/update_post/{{ piano.pk }}/" class="btn btn-info btn-sm float-right" role="button">
+                    <i class="fas fa-pen"></i>&nbsp; Edit Post
+                </a>
+            {% endif %}
             <h5 class="text-muted my-3"><i class="fas fa-star"></i> {{ piano.star_rate }}</h5>
             <h5 class="text-muted fst-italic my-3">{{ piano.price }}</h5>
-            <!-- 제품 등록년월 -->
-            <div class="text-muted fst-italic mb-2">Registered on {{ piano.created_at | date:"20y-m"}}</div>
+            <hr>
         </header>
 
         <!-- Piano Image -->
@@ -36,8 +42,13 @@
 
         <!-- 간단한 설명 -->
         <section class="mb-5">
-            <p class="fs-5 mb-4">{{ piano.content}}</p>
+            <p class="fs-5 mb-4">{{ piano.get_content_markdown | safe }}</p>
         </section>
+
+        <!-- 제품 등록년월 + 작성자 -->
+        <div class="text-muted fst-italic mb-2">
+            Release date : {{ piano.release_date | date:"20y-m"}} &nbsp;|&nbsp; Posted by : {{ piano.author | upper }}
+        </div>
 
         <!-- 제조사 -->
 
