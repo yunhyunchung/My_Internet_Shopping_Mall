@@ -3,6 +3,25 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .models import Piano, Category
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
+from .forms import CommentForm
+from django.shortcuts import get_object_or_404
+
+# 새 댓글 작성 & 저장
+def new_comment(request, pk):
+    if request.user.is_authenticated:
+        post = get_object_or_404(Piano, pk=pk)
+        if request.method == 'POST':
+            comment_form = CommentForm(request.POST)
+            if comment_form.is_valid():
+                comment = comment_form.save(commit=False)
+                comment.post = post
+                comment.author = request.user
+                comment.save()
+                return redirect(comment.get_absolute_url())
+        else:
+            return redirect(post.get_absolute_url())
+    else:
+        return PermissionDenied
 
 # 상품 목록 페이지
 class PianoList(ListView):
@@ -21,6 +40,7 @@ class PianoDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super(PianoDetail, self).get_context_data()
         context['categories'] = Category.objects.all()
+        context['comment_form'] = CommentForm
         return context
 
 
