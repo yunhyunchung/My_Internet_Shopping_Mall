@@ -1,17 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
+{% load static %}
+{% load socialaccount %}
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>My Page</title>
+    <title>Digital Piano Online Mall</title>
+    <link href="{% static 'shopping/bootstrap/bootstrap.min.css' %}" rel="stylesheet" type="text/css" media= "screen">
+    <link href="{% static 'myhome/css/my_page.css' %}" rel="stylesheet" type="text/css" media= "screen">
+    <script src="https://kit.fontawesome.com/d697b797d8.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <nav>
-        <a href="/shopping/">Digital Piano List</a>
-        <a href="/">Homepage</a>
-        <a href="/about_company/">About our company</a>
-    </nav>
-    <h2>My Page</h2>
-    <h4>사용자의 username, 이메일 보여주기</h4>
-    <h4>사용자가 작성한 댓글 보여주기 - 댓글을 클릭하면 댓글이 달린 상품 상세 페이지로 이동</h4>
+    {% include 'shopping/navbar.html' %}
+
+    <!-- 대문 소개글 -->
+    <section>
+        <div class="container">
+            <div class="row justify-content-between">
+                {% if user.is_authenticated %}
+                    <div class="col-lg-5 text-light">   <!-- 사용자 아바타, 이름, 이메일(있다면) 보여주기 -->
+                        <div class="text-center my-5">
+                            <h2 class="mt-5">MY PAGE</h2>
+                            {% if user.socialaccount_set.all.0.get_avatar_url %}
+                                <img class="rounded-circle mb-4" width="150px" src="{{ user.socialaccount_set.all.0.get_avatar_url }}">
+                            {% else %}
+                                <img class="rounded-circle mb-4" width="150px" src="https://doitdjango.com/avatar/id/406/e123cd977b739d8a/svg/{{ user.email }}">
+                            {% endif %}
+                            <h1 class="text-white fs-3 fw-bolder">{{ user.username }}</h1>
+                            {% if user.email %}
+                                <p class="text-white-80 mb-0">{{ user.email }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5 mt-5">  <!-- 사용자가 작성한 댓글 클릭하면 상품 상세 페이지로 이동 -->
+                        <h4 class="text-light">내가 작성한 댓글</h4>
+                        {% for piano in commented_pianos %}
+                            {% if piano.comment_set.exists %}
+                                <div class="card mt-1">
+                                    <div class="card-body">
+                                        {% for comment in piano.comment_set.iterator %}
+                                        {% if comment.author.username == user.username %}
+                                            <h6 class="text-light text-center">{{ piano.title }}</h6>
+                                            <div class="d-flex media mb-4">
+                                                <a href="{{ piano.get_absolute_url }}" class="text-decoration-none text-light">
+                                                    <div class="flex-shrink-0 float-left">  <!--아바타 이미지-->
+                                                        <img class="d-flex mr-3 rounded-circle" src="{{ comment.get_avatar_url }}" alt="{{ comment.author }}" width="60px" />
+                                                    </div>
+                                                    <div class="media-body ms-3 fw-bold float-right">
+                                                        <span class="badge badge-pill badge-dark">
+                                                            {{ comment.author.username }}
+                                                        </span>
+                                                        <!--<small class="text-light">{{ comment.created_at }}</small>-->
+                                                        <span class="badge badge-pill badge-dark">
+                                                            {{ comment.created_at }}
+                                                        </span>
+                                                        <p>{{ comment.content | linebreaks }}</p>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <h2>로그인 또는 회원가입하세요.</h2>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+
+    <div class="fixed-bottom">
+        {% include 'shopping/footer.html' %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
 </body>
 </html>

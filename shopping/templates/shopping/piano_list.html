@@ -26,7 +26,7 @@
   {% else %}
     <div class="px-0">
       <h2 class="display-5 font-italic font-weight-bold">GREAT Digital Pianos for you!</h2>
-      <p class="lead my-3 text-white font-weight-bold">디자인, 성능, 가격을 모두 다 갖춘 디지털 피아노!</p>
+      <p class="lead my-3 text-white font-weight-bold">디자인, 성능, 가성비를 모두 다 갖춘 디지털 피아노!</p>
     </div>
   {% endif %}
 </div>
@@ -40,8 +40,8 @@
           <!-- 카테고리 -->
           <strong class="d-inline-block mb-2 text-primary">{{ p.category }}</strong>
           <h4 class="mb-0 font-weight-bold">{{ p.title }}</h4>
-          <div class="mb-1 mt-4 text-muted">{{ p.price }} &nbsp; | &nbsp; <i class="fas fa-star"></i> {{ p.star_rate }}</div>
-          <p class="card-text mb-auto mt-4">{{ p.get_content_markdown | truncatewords_html:35 | safe }}</p>
+          <div class="mb-1 mt-4 text-muted">최저가 {{ p.price }}원&nbsp; | &nbsp; <i class="fas fa-star"></i> {{ p.star_rate }} / 5</div>
+          <p class="card-text mb-auto mt-4">{{ p.get_content_markdown | truncatewords_html:23 | safe }}</p>
           <br/>
           <div class="small text-muted">release date : {{ p.release_date | date:"20y-m"}}
               &nbsp;&nbsp;|&nbsp;&nbsp; posted by : {{ p.author | upper }}</div>

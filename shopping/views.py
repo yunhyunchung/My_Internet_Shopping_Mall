@@ -42,6 +42,7 @@ def category_page(request, slug):
                   }
                   )
 
+
 # 상품 등록 페이지
 class PianoCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):  # UserPasses~와 CreateView 순서대로...
     model = Piano

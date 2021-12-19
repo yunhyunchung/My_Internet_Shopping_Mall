@@ -1,0 +1,16 @@
+body {
+    background: url('/static/myhome/images/digitalpiano2.png') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+section {
+    margin-top: 50px;
+    margin-bottom: 150px;
+}
+
+.card {
+    background-color: rgba(0, 0, 0, 0.5);
+}

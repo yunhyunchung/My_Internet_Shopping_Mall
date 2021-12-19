@@ -1,17 +1,207 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>About our company</title>
+    <title> (주)PIANY </title>
+    <link href="{% static 'shopping/bootstrap/bootstrap.min.css' %}" rel="stylesheet" type="text/css" media= "screen">
+    <link href="{% static 'myhome/css/about_company.css' %}" rel="stylesheet" type="text/css" media= "screen">
+    <script src="https://kit.fontawesome.com/d697b797d8.js" crossorigin="anonymous"></script>
+    <!-- 외부 chart.js 연결-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 </head>
 <body>
-    <nav>
-        <a href="/shopping/">Digital Piano List</a>
-        <a href="/my_page/">My Page</a>
-        <a href="/">Homepage</a>
-    </nav>
-    <h2>회사 소개 페이지</h2>
-    <h4>쇼핑몰 대표 이미지 & 멘트</h4>
-    <h4>상품에 대한 통계정보를 모달창으로 보여주기 - bootstrap의 그래프</h4>
+    {% include 'shopping/navbar.html' %}
+
+    <!-- 회사 소개 -->
+    <section>
+        <div class="container">
+            <div class="row mt-5">
+                <div class="col-lg-7 mt-5">
+                    <h2>사람의 마음을 움직이는 소리, <br/>"피아니"의 소리입니다.</h2>
+                    <br/>
+                    <p class="lead">
+                        여러분의 만족을 최우선으로 하는 젊은 기업. 피아니.<br/>
+                        피아니는 대한민국 디지털 피아노 시장을 넘어 <br/>세계 악기 시장을 주도하는 브랜드로 거듭납니다.<br/>
+                    </p> <br/>
+                    <ul>
+                        <li>ABOUT PIANY</li>
+                        <ul>
+                            <li>행복한 음악 세상, 감동을 함께 만드는 피아니</li>
+                            <li>체계적인 교육을 받는 본사 직원의 엄격한 품질 평가를 통과한<br/> 고품질의 피아노를 판매합니다.</li>
+                            <li>연주자 스타일 맞춤 제품 상담과 악기 활용의 TIP까지 제공합니다.</li>
+                            <li>고객이 원하는 바에 귀를 기울여 가장 효율적인 솔루션을 제안합니다.</li>
+                        </ul>
+                        <br/>
+                        <li>BRAND STORY</li>
+                        <ul>
+                            <li>Special Techonlogy - 전문화된 기술력</li>
+                            <li>Good Design - 트랜드를 주도하는 디자인</li>
+                            <li>Create Challenge - 창의적인 도전</li>
+                        </ul>
+                        <br/>
+                        <li>PIANY PHILOSOPHY</li>
+                        <ul>
+                            <li>책임감 있는 구성원</li>
+                            <li>사람 우선의 기업 윤리</li>
+                            <li>변화에 맞게 디자인된 조직</li>
+                            <li>시대 흐름에 맞는 경영 전략 </li>
+                        </ul>
+                    </ul>
+                </div>
+
+                <div class="col-lg-5 mt-5">
+                    <img class="img-fluid" src="{% static 'myhome/images/digitalpiano2.png' %}">
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <hr/>
+    <!-- 상품 통계정보 -->
+    <section class="margin-for-footer">
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-12">
+                    <h1>PRODUCT STATISTICS</h1> <br/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card" data-toggle="modal" data-target="#portfolio1">
+                        <img class="card-img-top" src="{% static 'myhome/images/barchart.JPG' %}">
+                        <div class="card-body">
+                            <h5 class="card-title">카테고리별 상품 개수</h5>
+                            <p>Bar chart</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card" data-toggle="modal" data-target="#portfolio2">
+                        <img class="card-img-top" src="{% static 'myhome/images/donutchart.JPG' %}">
+                        <div class="card-body">
+                            <h5 class="card-title">브랜드별 상품 개수</h5>
+                            <p>Doughnut chart</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal 1 -->
+<div class="modal fade" id="portfolio1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">카테고리별 상품 개수</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+              <div class="col-lg-7">
+                  <!--막대 그래프-->
+                  <div class="card">
+                    <div class="card-body">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-lg-5">
+                  <p>막대 그래프 통계 결과</p>
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+        <!-- Modal 2 -->
+<div class="modal fade" id="portfolio2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel2">브랜드별 상품 개수</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+              <div class="col-lg-7">
+                  <div class="card">
+                      <!--도넛(원형) 그래프-->
+                      <div class="card-body">
+                          <canvas id="myChart2"></canvas>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-lg-5">
+                  <p>원형 도넛 그래프 통계 결과</p>
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!--Javascript로 Chart 그리기-->
+    <script>
+          //data 따로 정의 (x축은 항목, y값은 눈금값)
+          data1 = {
+            labels: ['그레이드 해머액션', '웨이티드 해머액션', '해머액션', '웨이티드 액션'],  //건반 타입 카테고리
+            datasets: [{ label: '# of Pianos', data: [8,6,5,2],  //y축 실제 값
+            backgroundColor: ['rgba(255,99,132,0.2)', 'rgba(54,162,235,0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)'],
+            borderColor: ['rgba(255,99,132,1.0)', 'rgba(54,162,235,1.0)', 'rgba(255, 206, 86, 1.0)', 'rgba(75, 192, 192, 1.0)'],
+            borderWidth: 1
+          }]
+          };
+
+          data2 = {
+            labels: ['뮤디스', 'HDC영창', '다이나톤', '삼익악기', '야마하'],  // 피아노 브랜드
+            datasets: [{ label: '# of Pianos', data: [4,6,5,3,3],  //y축 실제 값
+            backgroundColor: ['rgba(255,99,132,0.2)', 'rgba(54,162,235,0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)'],
+            borderColor: ['rgba(255,99,132,1.0)', 'rgba(54,162,235,1.0)', 'rgba(255, 206, 86, 1.0)', 'rgba(75, 192, 192, 1.0)', 'rgba(153, 102, 255, 1.0)'],
+            borderWidth: 1
+          }]
+          };
+
+          //1) 막대 그래프(bar chart)
+          var ctx = document.getElementById('myChart');
+          var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: data1,
+            options: {
+              scales: {
+                yAxes: [{ ticks: { beginAtZero: true } } ]
+              }
+            }
+          } );
+
+          //2) 원형(도넛) 그래프 그리기
+          var ctx2 = document.getElementById('myChart2');
+          var myChart2= new Chart(ctx2, {
+            type: 'doughnut',
+            data: data2,
+            options: {}
+          });
+    </script>
+
+
+    <div class="fixed-bottom">
+        {% include 'shopping/footer.html' %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
 </body>
 </html>
